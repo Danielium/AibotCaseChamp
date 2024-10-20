@@ -12,20 +12,23 @@ from aiogram.types import Message
 from fal import process_images  # Импортируем функцию обработки изображений с нейросетью
 
 os.environ["FAL_KEY"] = "6707e945-df15-41e3-a458-5ba2b2728e43:bf9e5aa09432a399fe4865a17a2f6e55"
-BOT_TOKEN = '7675059200:AAEFnhrfq9ywVidfVEcQoMsmCNaQJrLJ3Po'
+BOT_TOKEN = '7829353526:AAE3kK88AJD81DrIIdkx5sBpP_uAD3d7QRw'
 
 start = 'Привет! Этот бот поможет вам определить, как будет выглядеть на вас выбранная одежда. Просто отправьте мне ' \
         'сначала фотографию одежды, а после этого фотографию вас.'
 
 router = Router()
 
+
 class Form(StatesGroup):
     clothes = State()
     photo = State()
 
+
 @router.message(Command("start"))
 async def start_handler(message: Message):
     await message.answer(start.format(name=message.from_user.full_name))
+
 
 @router.message(F.photo)
 async def download_photo(message: Message, bot: Bot, state: FSMContext):
@@ -51,7 +54,7 @@ async def download_photo(message: Message, bot: Bot, state: FSMContext):
         )
         await state.update_data(photo=f"data/person_{photo.file_id}.jpg")
 
-        await message.reply("Вы отправили фотографию человека! Обработка...")
+        await message.reply("Вы отправили фотографию человека! Обработка займет около минуты. Ожидайте...")
 
         # Вызываем функцию для загрузки изображений и обработки
         result_url = await process_images(state)  # Передаём состояние для обработки
@@ -62,7 +65,8 @@ async def download_photo(message: Message, bot: Bot, state: FSMContext):
         else:
             await message.reply("Произошла ошибка при обработке изображения.")
 
-        await state.set_state(None)  # Завершаем состояние
+        await state.set_state(None)
+
 
 async def main():
     bot = Bot(
@@ -73,6 +77,7 @@ async def main():
     dp.include_router(router)
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)

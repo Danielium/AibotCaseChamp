@@ -1,10 +1,12 @@
 import fal_client
 from cloud import upload_image_to_cloudinary  # Импортируем функцию загрузки в Cloudinary
 
+
 def on_queue_update(update):
     if isinstance(update, fal_client.InProgress):
         for log in update.logs:
             print(log["message"])
+
 
 async def process_images(state):
     data = await state.get_data()
@@ -29,5 +31,5 @@ async def process_images(state):
 
     # Убедимся, что возвращаем только один объект
     if response and isinstance(response, dict):
-        return response.get('image', {}).get('url')  # Возвращаем URL изображения из ответа
+        return response.get('image', {}).get('url')
     return None

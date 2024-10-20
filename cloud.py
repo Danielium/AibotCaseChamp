@@ -12,7 +12,7 @@ cloudinary.config(
 async def upload_image_to_cloudinary(image_path):
     try:
         upload_result = cloudinary.uploader.upload(image_path)
-        return upload_result.get("secure_url")  # Возвращаем URL загруженного изображения
+        return upload_result.get("secure_url")
     except Exception as e:
         print(f"Ошибка загрузки изображения: {e}")
         return None
