@@ -11,7 +11,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import Message
 from fal import process_images  # Импортируем функцию обработки изображений с нейросетью
 
-os.environ["FAL_KEY"] = "51e1e97d-bde2-476e-b330-92f4ea45a257:c0a9de151ad33de6c57d37b319e9676c"
+os.environ["FAL_KEY"] = "0d4ed3c0-67bb-4bf4-8b36-1ca35973a266:6cc73bf649d3d4842f5a83a01bd7639a"
 BOT_TOKEN = '7829353526:AAE3kK88AJD81DrIIdkx5sBpP_uAD3d7QRw'
 
 start = 'Привет! Этот бот поможет вам определить, как будет выглядеть на вас выбранная одежда. Просто отправьте мне ' \
